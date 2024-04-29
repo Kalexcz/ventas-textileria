@@ -58,12 +58,12 @@
                             @enderror
                         </div>
 
-                        <!---Fecha de vencimiento---->
+                        <!---Stock---->
                         <div class="col-md-6">
-                            <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento:</label>
-                            <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control"
-                                value="{{ old('fecha_vencimiento') }}">
-                            @error('fecha_vencimiento')
+                            <label for="stock" class="form-label">Stock:</label>
+                            <input type="number" name="stock" id="stock" class="form-control"
+                                value="{{ old('stock') }}">
+                            @error('stock')
                                 <small class="text-danger">{{ '*' . $message }}</small>
                             @enderror
                         </div>
@@ -94,7 +94,7 @@
 
                         <!---Presentaciones---->
                         <div class="col-md-6">
-                            <label for="presentacione_id" class="form-label">Ubicación:</label>
+                            <label for="presentacione_id" class="form-label">Presentación:</label>
                             <select data-size="4" title="Seleccione una presentación" data-live-search="true"
                                 name="presentacione_id" id="presentacione_id" class="form-control selectpicker show-tick">
                                 @foreach ($presentaciones as $item)
@@ -125,15 +125,14 @@
                         </div>
 
                     </div>
-                </div>
 
+                </div>
                 <div class="card-footer text-center">
                     <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="reset" class="btn btn-secondary">Reiniciar</button>
                 </div>
             </form>
         </div>
-
-
     </div>
 @endsection
 

@@ -11,6 +11,7 @@ use App\Models\Producto;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductoController extends Controller
 {
@@ -26,9 +27,20 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::with(['categorias.caracteristica','marca.caracteristica','presentacione.caracteristica'])->latest()->get();
-    
-        return view('producto.index',compact('productos'));
+        $productos = Producto::with(['categorias.caracteristica', 'marca.caracteristica', 'presentacione.caracteristica'])->latest()->get();
+
+        return view('producto.index', compact('productos'));
+    }
+
+    /*
+    PDF
+    */
+
+    public function pdf()
+    {
+        $productos = Producto::all();
+        $pdf = Pdf::loadView('producto.pdf', compact('productos'));
+        return $pdf->stream();
     }
 
     /**
@@ -73,8 +85,8 @@ class ProductoController extends Controller
             $producto->fill([
                 'codigo' => $request->codigo,
                 'nombre' => $request->nombre,
+                'stock' => $request->stock,
                 'descripcion' => $request->descripcion,
-                'fecha_vencimiento' => $request->fecha_vencimiento,
                 'img_path' => $name,
                 'marca_id' => $request->marca_id,
                 'presentacione_id' => $request->presentacione_id
@@ -123,7 +135,7 @@ class ProductoController extends Controller
             ->where('c.estado', 1)
             ->get();
 
-        return view('producto.edit',compact('producto','marcas','presentaciones','categorias'));
+        return view('producto.edit', compact('producto', 'marcas', 'presentaciones', 'categorias'));
     }
 
     /**
@@ -131,17 +143,16 @@ class ProductoController extends Controller
      */
     public function update(UpdateProductoRequest $request, Producto $producto)
     {
-        try{
+        try {
             DB::beginTransaction();
 
             if ($request->hasFile('img_path')) {
                 $name = $producto->handleUploadImage($request->file('img_path'));
 
                 //Eliminar si existiese una imagen
-                if(Storage::disk('public')->exists('productos/'.$producto->img_path)){
-                    Storage::disk('public')->delete('productos/'.$producto->img_path);
+                if (Storage::disk('public')->exists('productos/' . $producto->img_path)) {
+                    Storage::disk('public')->delete('productos/' . $producto->img_path);
                 }
-
             } else {
                 $name = $producto->img_path;
             }
@@ -163,11 +174,11 @@ class ProductoController extends Controller
             $producto->categorias()->sync($categorias);
 
             DB::commit();
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
         }
 
-        return redirect()->route('productos.index')->with('success','Producto editado');
+        return redirect()->route('productos.index')->with('success', 'Producto editado');
     }
 
     /**

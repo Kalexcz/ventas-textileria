@@ -24,8 +24,8 @@ class StoreProductoRequest extends FormRequest
         return [
             'codigo' => 'required|unique:productos,codigo|max:50',
             'nombre' => 'required|unique:productos,nombre|max:80',
+            'stock' => 'required|integer|min:0',
             'descripcion' => 'nullable|max:255',
-            'fecha_vencimiento' => 'nullable|date',
             'img_path' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             'marca_id' => 'required|integer|exists:marcas,id',
             'presentacione_id' => 'required|integer|exists:presentaciones,id',

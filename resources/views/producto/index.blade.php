@@ -26,6 +26,7 @@
                 <a href="{{ route('productos.create') }}">
                     <button type="button" class="btn btn-primary">Añadir nuevo registro</button>
                 </a>
+                <a href="{{ route('productos.pdf') }}" class="btn btn-primary">Imprimir</a>
             </div>
         @endcan
 
@@ -40,6 +41,7 @@
                         <tr>
                             <th>Código</th>
                             <th>Nombre</th>
+                            <th>Stock</th>
                             <th>Marca</th>
                             <th>Ubicación</th>
                             <th>Categorías</th>
@@ -55,6 +57,9 @@
                                 </td>
                                 <td>
                                     {{ $item->nombre }}
+                                </td>
+                                <td>
+                                    {{ $item->stock }} <!-- Agregamos esta línea -->
                                 </td>
                                 <td>
                                     {{ $item->marca->caracteristica->nombre }}
@@ -220,6 +225,7 @@
                     </tbody>
                 </table>
             </div>
+
 
         </div>
     </div>
