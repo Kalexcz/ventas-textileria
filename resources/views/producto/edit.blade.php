@@ -60,14 +60,14 @@
                         </div>
 
                         <!---Fecha de vencimiento---->
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento:</label>
                             <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control"
                                 value="{{ old('fecha_vencimiento', $producto->fecha_vencimiento) }}">
                             @error('fecha_vencimiento')
                                 <small class="text-danger">{{ '*' . $message }}</small>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <!---Imagen---->
                         <div class="col-md-6">

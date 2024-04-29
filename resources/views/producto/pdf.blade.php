@@ -135,11 +135,11 @@
                                         <p><span class="fw-bolder">Descripción: </span>{{ $item->descripcion }}
                                         </p>
                                     </div>
-                                    <div class="col-12">
+                                    {{-- <div class="col-12">
                                         <p><span class="fw-bolder">Fecha de vencimiento:
                                             </span>{{ $item->fecha_vencimiento == '' ? 'No tiene' : $item->fecha_vencimiento }}
                                         </p>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-12">
                                         <p><span class="fw-bolder">Stock: </span>{{ $item->stock }}</p>
                                     </div>
